@@ -1,13 +1,19 @@
 package com.flancer32.sample;
 
-import static org.testng.Assert.assertTrue;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.flancer32.sample.App;
 
 public class AppTest {
 	@Test
 	public void main() {
-		App.main(null);
-		assertTrue(true);
+		@SuppressWarnings("resource")
+		ApplicationContext context = new AnnotationConfigApplicationContext(
+				App.class);
+		String actual = context.getBean(App.class).mockMessageService()
+				.getMessage();
+		Assert.assertEquals(actual, "Hello World!");
 	}
 }
